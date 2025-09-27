@@ -20,6 +20,7 @@ const SectionHeader = styled(motion.div)`
 `;
 
 const SectionTitle = styled.h2`
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 300;
   color: #2c2c2c;
@@ -28,6 +29,7 @@ const SectionTitle = styled.h2`
 `;
 
 const SectionSubtitle = styled.p`
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   font-size: 1.2rem;
   color: #6b7280;
   max-width: 600px;
@@ -115,6 +117,11 @@ const ContactForm = styled(motion.form)`
   padding: 3rem;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  
+  @media (max-width: 768px) {
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
+  }
 `;
 
 const FormGroup = styled.div`
@@ -137,7 +144,9 @@ const Input = styled.input`
   font-size: 1rem;
   color: #2c2c2c;
   background: #fafafa;
-  transition: all 0.3s ease;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  will-change: border-color, background-color;
 
   &:focus {
     outline: none;
@@ -147,6 +156,11 @@ const Input = styled.input`
 
   &::placeholder {
     color: #9ca3af;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.875rem;
+    font-size: 16px; /* Prevents zoom on iOS */
   }
 `;
 
@@ -158,10 +172,11 @@ const TextArea = styled.textarea`
   font-size: 1rem;
   color: #2c2c2c;
   background: #fafafa;
-  transition: all 0.3s ease;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
   min-height: 120px;
   resize: vertical;
-  font-family: inherit;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  will-change: border-color, background-color;
 
   &:focus {
     outline: none;
@@ -171,6 +186,12 @@ const TextArea = styled.textarea`
 
   &::placeholder {
     color: #9ca3af;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.875rem;
+    font-size: 16px; /* Prevents zoom on iOS */
+    min-height: 100px;
   }
 `;
 

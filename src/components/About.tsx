@@ -20,6 +20,7 @@ const SectionHeader = styled(motion.div)`
 `;
 
 const SectionTitle = styled.h2`
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 300;
   color: #2c2c2c;
@@ -28,6 +29,7 @@ const SectionTitle = styled.h2`
 `;
 
 const SectionSubtitle = styled.p`
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   font-size: 1.2rem;
   color: #6b7280;
   max-width: 600px;

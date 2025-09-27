@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 
 const LogoContainer = styled.div<{ size?: 'small' | 'medium' | 'large' }>`
@@ -24,6 +24,26 @@ const LogoImage = styled.img<{ size?: 'small' | 'medium' | 'large' }>`
   }};
   height: auto;
   object-fit: contain;
+  
+  @media (max-width: 768px) {
+    width: ${props => {
+      switch (props.size) {
+        case 'small': return '80px';
+        case 'large': return '180px';
+        default: return '120px';
+      }
+    }};
+  }
+  
+  @media (max-width: 480px) {
+    width: ${props => {
+      switch (props.size) {
+        case 'small': return '60px';
+        case 'large': return '150px';
+        default: return '100px';
+      }
+    }};
+  }
 `;
 
 const FallbackLogo = styled.div<{ size?: 'small' | 'medium' | 'large' }>`
@@ -57,6 +77,54 @@ const FallbackLogo = styled.div<{ size?: 'small' | 'medium' | 'large' }>`
   }};
   text-align: center;
   line-height: 1;
+  
+  @media (max-width: 768px) {
+    width: ${props => {
+      switch (props.size) {
+        case 'small': return '80px';
+        case 'large': return '180px';
+        default: return '120px';
+      }
+    }};
+    height: ${props => {
+      switch (props.size) {
+        case 'small': return '80px';
+        case 'large': return '180px';
+        default: return '120px';
+      }
+    }};
+    font-size: ${props => {
+      switch (props.size) {
+        case 'small': return '0.8rem';
+        case 'large': return '1.8rem';
+        default: return '1.2rem';
+      }
+    }};
+  }
+  
+  @media (max-width: 480px) {
+    width: ${props => {
+      switch (props.size) {
+        case 'small': return '60px';
+        case 'large': return '150px';
+        default: return '100px';
+      }
+    }};
+    height: ${props => {
+      switch (props.size) {
+        case 'small': return '60px';
+        case 'large': return '150px';
+        default: return '100px';
+      }
+    }};
+    font-size: ${props => {
+      switch (props.size) {
+        case 'small': return '0.6rem';
+        case 'large': return '1.5rem';
+        default: return '1rem';
+      }
+    }};
+  }
 `;
 
 interface LogoProps {
@@ -65,13 +133,13 @@ interface LogoProps {
   className?: string;
 }
 
-const Logo: React.FC<LogoProps> = ({ size = 'medium', showText = true, className }) => {
+const Logo: React.FC<LogoProps> = memo(({ size = 'medium', showText = true, className }) => {
   const [imageError, setImageError] = React.useState(false);
 
-  const handleImageError = () => {
+  const handleImageError = React.useCallback(() => {
     console.error('Logo image failed to load: /logo.png');
     setImageError(true);
-  };
+  }, []);
 
   return (
     <LogoContainer size={size} className={className}>
@@ -89,6 +157,8 @@ const Logo: React.FC<LogoProps> = ({ size = 'medium', showText = true, className
       )}
     </LogoContainer>
   );
-};
+});
+
+Logo.displayName = 'Logo';
 
 export default Logo;

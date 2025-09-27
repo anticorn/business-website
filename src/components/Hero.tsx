@@ -11,6 +11,13 @@ const HeroSection = styled.section`
   position: relative;
   background: #ffffff;
   overflow: hidden;
+  padding-top: 80px; /* Account for fixed header */
+  will-change: transform;
+  
+  @media (max-width: 768px) {
+    padding-top: 100px; /* More space on mobile for larger header */
+    min-height: calc(100vh - 20px);
+  }
 `;
 
 const HeroContainer = styled.div`
@@ -29,15 +36,22 @@ const LogoSection = styled(motion.div)`
 `;
 
 const HeroTitle = styled(motion.h1)`
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   font-size: clamp(2.5rem, 8vw, 5rem);
   font-weight: 300;
   color: #2c2c2c;
   margin-bottom: 1.5rem;
   line-height: 1.1;
   letter-spacing: -0.02em;
+  
+  @media (max-width: 768px) {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    margin-bottom: 1rem;
+  }
 `;
 
 const HeroSubtitle = styled(motion.p)`
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   font-size: clamp(1.1rem, 3vw, 1.5rem);
   color: #6b7280;
   margin-bottom: 3rem;
@@ -46,6 +60,12 @@ const HeroSubtitle = styled(motion.p)`
   margin-right: auto;
   font-weight: 300;
   line-height: 1.6;
+  
+  @media (max-width: 768px) {
+    font-size: clamp(1rem, 4vw, 1.3rem);
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+  }
 `;
 
 const CTAButton = styled(motion.a)`
@@ -57,16 +77,30 @@ const CTAButton = styled(motion.a)`
   border-radius: 50px;
   font-weight: 500;
   font-size: 1.1rem;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
   border: 2px solid #2c2c2c;
   margin-right: 1rem;
   margin-bottom: 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  will-change: transform;
+  backface-visibility: hidden;
 
   &:hover {
     background: transparent;
     color: #2c2c2c;
     transform: translateY(-2px);
     box-shadow: 0 10px 30px rgba(44, 44, 44, 0.2);
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.75rem;
+    min-height: 44px; /* Better touch target */
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
 
@@ -79,15 +113,28 @@ const SecondaryButton = styled(motion.a)`
   border-radius: 50px;
   font-weight: 500;
   font-size: 1.1rem;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
   border: 2px solid #2c2c2c;
   margin-bottom: 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  will-change: transform;
+  backface-visibility: hidden;
 
   &:hover {
     background: #2c2c2c;
     color: white;
     transform: translateY(-2px);
     box-shadow: 0 10px 30px rgba(44, 44, 44, 0.2);
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    min-height: 44px; /* Better touch target */
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
 

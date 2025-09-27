@@ -20,6 +20,7 @@ const SectionHeader = styled(motion.div)`
 `;
 
 const SectionTitle = styled.h2`
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 300;
   color: #2c2c2c;
@@ -28,6 +29,7 @@ const SectionTitle = styled.h2`
 `;
 
 const SectionSubtitle = styled.p`
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   font-size: 1.2rem;
   color: #6b7280;
   max-width: 600px;
@@ -41,6 +43,12 @@ const ServicesGrid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 2rem;
   margin-bottom: 4rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
 `;
 
 const ServiceCard = styled(motion.div)`
@@ -48,14 +56,25 @@ const ServiceCard = styled(motion.div)`
   padding: 3rem 2rem;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   border: 1px solid rgba(0, 0, 0, 0.05);
   position: relative;
   overflow: hidden;
+  will-change: transform;
+  backface-visibility: hidden;
 
   &:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  @media (max-width: 768px) {
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
+    
+    &:hover {
+      transform: translateY(-4px);
+    }
   }
 
   &::before {

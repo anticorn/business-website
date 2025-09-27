@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo, useCallback } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
@@ -12,8 +12,16 @@ const HeaderContainer = styled(motion.header)<{ scrolled: boolean }>`
   background: ${props => props.scrolled ? 'rgba(255, 255, 255, 0.95)' : 'transparent'};
   backdrop-filter: ${props => props.scrolled ? 'blur(10px)' : 'none'};
   border-bottom: ${props => props.scrolled ? '1px solid rgba(0, 0, 0, 0.1)' : 'none'};
-  transition: all 0.3s ease;
+  transition: background-color 0.2s ease, backdrop-filter 0.2s ease, border-bottom 0.2s ease;
   padding: 1rem 0;
+  will-change: background-color, backdrop-filter;
+  
+  @media (max-width: 768px) {
+    padding: 0.5rem 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
 `;
 
 const Nav = styled.nav`
@@ -23,6 +31,10 @@ const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
 `;
 
 const LogoWrapper = styled(motion.div)`
@@ -54,6 +66,7 @@ const NavLinks = styled(motion.ul)<{ isOpen: boolean }>`
 
 const NavLink = styled(motion.li)`
   a {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
     text-decoration: none;
     color: #2c2c2c;
     font-weight: 500;
@@ -102,26 +115,26 @@ const CloseButton = styled(MobileMenuButton)`
   right: 2rem;
 `;
 
-const Header: React.FC = () => {
+const Header: React.FC = memo(() => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+  const handleScroll = useCallback(() => {
+    setScrolled(window.scrollY > 50);
   }, []);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
 
-  const closeMenu = () => {
+  const toggleMenu = useCallback(() => {
+    setIsMenuOpen(prev => !prev);
+  }, []);
+
+  const closeMenu = useCallback(() => {
     setIsMenuOpen(false);
-  };
+  }, []);
 
   return (
     <HeaderContainer
@@ -195,6 +208,8 @@ const Header: React.FC = () => {
       </Nav>
     </HeaderContainer>
   );
-};
+});
+
+Header.displayName = 'Header';
 
 export default Header;
