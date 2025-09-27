@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
 
-const HeaderContainer = styled(motion.header)<{ scrolled: boolean }>`
+const HeaderContainer = styled(motion.header)<{ scrolled: boolean; showOnMobile: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
@@ -12,15 +12,20 @@ const HeaderContainer = styled(motion.header)<{ scrolled: boolean }>`
   background: ${props => props.scrolled ? 'rgba(255, 255, 255, 0.95)' : 'transparent'};
   backdrop-filter: ${props => props.scrolled ? 'blur(10px)' : 'none'};
   border-bottom: ${props => props.scrolled ? '1px solid rgba(0, 0, 0, 0.1)' : 'none'};
-  transition: background-color 0.2s ease, backdrop-filter 0.2s ease, border-bottom 0.2s ease;
+  transition: background-color 0.2s ease, backdrop-filter 0.2s ease, border-bottom 0.2s ease, transform 0.3s ease;
   padding: 1rem 0;
-  will-change: background-color, backdrop-filter;
+  will-change: background-color, backdrop-filter, transform;
   
   @media (max-width: 768px) {
-    padding: 0.5rem 0;
+    padding: 0.25rem 0;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    transform: ${props => props.showOnMobile ? 'translateY(0)' : 'translateY(-100%)'};
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.2rem 0;
   }
 `;
 
@@ -33,7 +38,11 @@ const Nav = styled.nav`
   align-items: center;
   
   @media (max-width: 768px) {
-    padding: 0 1rem;
+    padding: 0 0.75rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0 0.5rem;
   }
 `;
 
@@ -118,14 +127,34 @@ const CloseButton = styled(MobileMenuButton)`
 const Header: React.FC = memo(() => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [showOnMobile, setShowOnMobile] = useState(false);
 
   const handleScroll = useCallback(() => {
-    setScrolled(window.scrollY > 50);
+    const scrollY = window.scrollY;
+    const isMobile = window.innerWidth <= 768;
+    
+    setScrolled(scrollY > 50);
+    
+    // On mobile, show header when scrolled past hero section (approximately 50vh)
+    if (isMobile) {
+      setShowOnMobile(scrollY > window.innerHeight * 0.5);
+    } else {
+      setShowOnMobile(true);
+    }
   }, []);
 
   useEffect(() => {
+    // Initialize mobile visibility
+    const isMobile = window.innerWidth <= 768;
+    setShowOnMobile(!isMobile);
+    
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
   }, [handleScroll]);
 
   const toggleMenu = useCallback(() => {
@@ -139,6 +168,7 @@ const Header: React.FC = memo(() => {
   return (
     <HeaderContainer
       scrolled={scrolled}
+      showOnMobile={showOnMobile}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}

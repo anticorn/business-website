@@ -15,8 +15,8 @@ const HeroSection = styled.section`
   will-change: transform;
   
   @media (max-width: 768px) {
-    padding-top: 100px; /* More space on mobile for larger header */
-    min-height: calc(100vh - 20px);
+    padding-top: 0; /* No padding needed since header is hidden initially */
+    min-height: 100vh;
   }
 `;
 

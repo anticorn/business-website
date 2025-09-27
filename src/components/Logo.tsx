@@ -28,9 +28,9 @@ const LogoImage = styled.img<{ size?: 'small' | 'medium' | 'large' }>`
   @media (max-width: 768px) {
     width: ${props => {
       switch (props.size) {
-        case 'small': return '80px';
-        case 'large': return '180px';
-        default: return '120px';
+        case 'small': return '60px';
+        case 'large': return '120px';
+        default: return '80px';
       }
     }};
   }
@@ -38,9 +38,9 @@ const LogoImage = styled.img<{ size?: 'small' | 'medium' | 'large' }>`
   @media (max-width: 480px) {
     width: ${props => {
       switch (props.size) {
-        case 'small': return '60px';
-        case 'large': return '150px';
-        default: return '100px';
+        case 'small': return '45px';
+        case 'large': return '100px';
+        default: return '65px';
       }
     }};
   }
@@ -81,23 +81,23 @@ const FallbackLogo = styled.div<{ size?: 'small' | 'medium' | 'large' }>`
   @media (max-width: 768px) {
     width: ${props => {
       switch (props.size) {
-        case 'small': return '80px';
-        case 'large': return '180px';
-        default: return '120px';
+        case 'small': return '60px';
+        case 'large': return '120px';
+        default: return '80px';
       }
     }};
     height: ${props => {
       switch (props.size) {
-        case 'small': return '80px';
-        case 'large': return '180px';
-        default: return '120px';
+        case 'small': return '60px';
+        case 'large': return '120px';
+        default: return '80px';
       }
     }};
     font-size: ${props => {
       switch (props.size) {
-        case 'small': return '0.8rem';
-        case 'large': return '1.8rem';
-        default: return '1.2rem';
+        case 'small': return '0.6rem';
+        case 'large': return '1.2rem';
+        default: return '0.8rem';
       }
     }};
   }
@@ -105,23 +105,23 @@ const FallbackLogo = styled.div<{ size?: 'small' | 'medium' | 'large' }>`
   @media (max-width: 480px) {
     width: ${props => {
       switch (props.size) {
-        case 'small': return '60px';
-        case 'large': return '150px';
-        default: return '100px';
+        case 'small': return '45px';
+        case 'large': return '100px';
+        default: return '65px';
       }
     }};
     height: ${props => {
       switch (props.size) {
-        case 'small': return '60px';
-        case 'large': return '150px';
-        default: return '100px';
+        case 'small': return '45px';
+        case 'large': return '100px';
+        default: return '65px';
       }
     }};
     font-size: ${props => {
       switch (props.size) {
-        case 'small': return '0.6rem';
-        case 'large': return '1.5rem';
-        default: return '1rem';
+        case 'small': return '0.45rem';
+        case 'large': return '1rem';
+        default: return '0.65rem';
       }
     }};
   }
