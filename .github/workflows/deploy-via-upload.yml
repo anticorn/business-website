@@ -1,0 +1,58 @@
+name: Deploy to GitHub Pages (Via Upload)
+
+on:
+  push:
+    branches: [ main ]
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: List all files
+      run: |
+        echo "=== Root directory ==="
+        ls -la
+        echo "=== Public directory ==="
+        ls -la public/
+        echo "=== Checking for index.html ==="
+        ls -la public/index.html
+        
+    - name: Build
+      run: npm run build
+      
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-files
+        path: build/
+        retention-days: 1
+        
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./build
+        cname: # Leave empty for username.github.io/repo-name
+        force_orphan: true
