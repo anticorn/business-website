@@ -214,7 +214,7 @@ const Footer: React.FC = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h3>Precision Books</h3>
+            <h3>Rose & Stone Bookkeeping</h3>
             <p>
               We provide accurate, reliable bookkeeping and accounting services that help
               your business maintain financial health with precision and professional care.
@@ -330,7 +330,7 @@ const Footer: React.FC = () => {
           style={{ borderTop: '1px solid #4a5568', paddingTop: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}
         >
           <Copyright>
-            © 2024 Precision Books. All rights reserved.
+            © 2024 Rose & Stone Bookkeeping. All rights reserved.
           </Copyright>
           
           <FooterLinks>

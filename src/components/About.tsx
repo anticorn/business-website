@@ -149,7 +149,7 @@ const About: React.FC = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <SectionTitle>About Precision Books</SectionTitle>
+          <SectionTitle>About Rose & Stone Bookkeeping</SectionTitle>
           <SectionSubtitle>
             We are a professional bookkeeping firm specializing in providing accurate,
             reliable accounting services that help businesses maintain financial health and compliance.
@@ -165,7 +165,7 @@ const About: React.FC = () => {
           >
             <h3>Our Philosophy</h3>
             <p>
-              At Precision Books, we believe that accurate bookkeeping is the foundation
+              At Rose & Stone Bookkeeping, we believe that accurate bookkeeping is the foundation
               of every successful business. We don't just record numbers – we provide
               insights that help you make informed financial decisions.
             </p>

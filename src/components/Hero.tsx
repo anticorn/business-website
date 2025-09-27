@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import Logo from './Logo';
 
 const HeroSection = styled.section`
   min-height: 100vh;
@@ -19,6 +20,12 @@ const HeroContainer = styled.div`
   text-align: center;
   position: relative;
   z-index: 2;
+`;
+
+const LogoSection = styled(motion.div)`
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
 `;
 
 const HeroTitle = styled(motion.h1)`
@@ -192,10 +199,18 @@ const Hero: React.FC = () => {
       </BackgroundElements>
 
       <HeroContainer>
+        <LogoSection
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+        >
+          <Logo size="large" showText={true} />
+        </LogoSection>
+
         <HeroTitle
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
         >
           Professional
           <br />
@@ -205,7 +220,7 @@ const Hero: React.FC = () => {
         <HeroSubtitle
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
         >
           Expert bookkeeping and accounting services to keep your business
           finances organized, compliant, and growing with precision and care.

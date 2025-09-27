@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import Logo from './Logo';
 
 const HeaderContainer = styled(motion.header)<{ scrolled: boolean }>`
   position: fixed;
@@ -24,11 +25,9 @@ const Nav = styled.nav`
   align-items: center;
 `;
 
-const Logo = styled(motion.div)`
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #2c2c2c;
-  letter-spacing: -0.02em;
+const LogoWrapper = styled(motion.div)`
+  display: flex;
+  align-items: center;
 `;
 
 const NavLinks = styled(motion.ul)<{ isOpen: boolean }>`
@@ -132,13 +131,13 @@ const Header: React.FC = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <Nav>
-        <Logo
+        <LogoWrapper
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          Precision Books
-        </Logo>
+          <Logo size="small" showText={false} />
+        </LogoWrapper>
 
         <NavLinks isOpen={isMenuOpen}>
           <CloseButton onClick={closeMenu}>
