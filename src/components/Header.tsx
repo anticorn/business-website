@@ -1,0 +1,201 @@
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { motion } from 'framer-motion';
+
+const HeaderContainer = styled(motion.header)<{ scrolled: boolean }>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: ${props => props.scrolled ? 'rgba(255, 255, 255, 0.95)' : 'transparent'};
+  backdrop-filter: ${props => props.scrolled ? 'blur(10px)' : 'none'};
+  border-bottom: ${props => props.scrolled ? '1px solid rgba(0, 0, 0, 0.1)' : 'none'};
+  transition: all 0.3s ease;
+  padding: 1rem 0;
+`;
+
+const Nav = styled.nav`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Logo = styled(motion.div)`
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c2c2c;
+  letter-spacing: -0.02em;
+`;
+
+const NavLinks = styled(motion.ul)<{ isOpen: boolean }>`
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    justify-content: center;
+    gap: 3rem;
+    transform: ${props => props.isOpen ? 'translateX(0)' : 'translateX(100%)'};
+    transition: transform 0.3s ease;
+  }
+`;
+
+const NavLink = styled(motion.li)`
+  a {
+    text-decoration: none;
+    color: #2c2c2c;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+    position: relative;
+
+    &:hover {
+      color: #6b7280;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #6b7280;
+      transition: width 0.3s ease;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
+  }
+`;
+
+const MobileMenuButton = styled(motion.button)`
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #2c2c2c;
+  cursor: pointer;
+  z-index: 1001;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+`;
+
+const CloseButton = styled(MobileMenuButton)`
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+`;
+
+const Header: React.FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  return (
+    <HeaderContainer
+      scrolled={scrolled}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
+      <Nav>
+        <Logo
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          Precision Books
+        </Logo>
+
+        <NavLinks isOpen={isMenuOpen}>
+          <CloseButton onClick={closeMenu}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+            </svg>
+          </CloseButton>
+          
+          <NavLink
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <a href="#home" onClick={closeMenu}>Home</a>
+          </NavLink>
+          
+          <NavLink
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <a href="#about" onClick={closeMenu}>About</a>
+          </NavLink>
+          
+          <NavLink
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
+            <a href="#services" onClick={closeMenu}>Services</a>
+          </NavLink>
+          
+          <NavLink
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
+            <a href="#portfolio" onClick={closeMenu}>Portfolio</a>
+          </NavLink>
+          
+          <NavLink
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+          >
+            <a href="#contact" onClick={closeMenu}>Contact</a>
+          </NavLink>
+        </NavLinks>
+
+        <MobileMenuButton onClick={toggleMenu}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+          </svg>
+        </MobileMenuButton>
+      </Nav>
+    </HeaderContainer>
+  );
+};
+
+export default Header;
