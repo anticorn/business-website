@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 const ServicesSection = styled.section`
   padding: 8rem 0;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  background: #ffffff;
   position: relative;
 `;
 

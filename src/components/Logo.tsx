@@ -17,13 +17,46 @@ const LogoContainer = styled.div<{ size?: 'small' | 'medium' | 'large' }>`
 const LogoImage = styled.img<{ size?: 'small' | 'medium' | 'large' }>`
   width: ${props => {
     switch (props.size) {
-      case 'small': return '60px';
-      case 'large': return '120px';
-      default: return '90px';
+      case 'small': return '120px';
+      case 'large': return '240px';
+      default: return '180px';
     }
   }};
   height: auto;
   object-fit: contain;
+`;
+
+const FallbackLogo = styled.div<{ size?: 'small' | 'medium' | 'large' }>`
+  width: ${props => {
+    switch (props.size) {
+      case 'small': return '120px';
+      case 'large': return '240px';
+      default: return '180px';
+    }
+  }};
+  height: ${props => {
+    switch (props.size) {
+      case 'small': return '120px';
+      case 'large': return '240px';
+      default: return '180px';
+    }
+  }};
+  background: #7E888C;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: ${props => {
+    switch (props.size) {
+      case 'small': return '1.2rem';
+      case 'large': return '2.4rem';
+      default: return '1.8rem';
+    }
+  }};
+  text-align: center;
+  line-height: 1;
 `;
 
 interface LogoProps {
@@ -33,13 +66,27 @@ interface LogoProps {
 }
 
 const Logo: React.FC<LogoProps> = ({ size = 'medium', showText = true, className }) => {
+  const [imageError, setImageError] = React.useState(false);
+
+  const handleImageError = () => {
+    console.error('Logo image failed to load: /logo.png');
+    setImageError(true);
+  };
+
   return (
     <LogoContainer size={size} className={className}>
-      <LogoImage 
-        size={size}
-        src="/logo.png" 
-        alt="Rose & Stone Bookkeeping Logo"
-      />
+      {imageError ? (
+        <FallbackLogo size={size}>
+          R&S
+        </FallbackLogo>
+      ) : (
+        <LogoImage 
+          size={size}
+          src={`${process.env.PUBLIC_URL || ''}/logo.png`} 
+          alt="Rose & Stone Bookkeeping Logo"
+          onError={handleImageError}
+        />
+      )}
     </LogoContainer>
   );
 };

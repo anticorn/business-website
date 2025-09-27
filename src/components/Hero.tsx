@@ -9,7 +9,7 @@ const HeroSection = styled.section`
   align-items: center;
   justify-content: center;
   position: relative;
-  background: linear-gradient(135deg, #fafafa 0%, #f0f4f8 100%);
+  background: #ffffff;
   overflow: hidden;
 `;
 

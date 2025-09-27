@@ -20,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #fafafa;
+    background-color: #ffffff;
     color: #2c2c2c;
     line-height: 1.6;
   }
@@ -37,7 +37,7 @@ const GlobalStyle = createGlobalStyle`
 
 const AppContainer = styled.div`
   min-height: 100vh;
-  background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+  background: #ffffff;
 `;
 
 const Main = styled.main`
