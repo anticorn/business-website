@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
@@ -29,10 +29,20 @@ const HeroContainer = styled.div`
   z-index: 2;
 `;
 
-const LogoSection = styled(motion.div)`
+const LogoSection = styled(motion.div)<{ isTransitioning: boolean }>`
   margin-bottom: 2rem;
   display: flex;
   justify-content: center;
+  position: ${props => props.isTransitioning ? 'fixed' : 'relative'};
+  top: ${props => props.isTransitioning ? '1rem' : 'auto'};
+  left: ${props => props.isTransitioning ? '2rem' : 'auto'};
+  z-index: ${props => props.isTransitioning ? '1001' : 'auto'};
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  @media (max-width: 768px) {
+    top: ${props => props.isTransitioning ? '0.5rem' : 'auto'};
+    left: ${props => props.isTransitioning ? '1rem' : 'auto'};
+  }
 `;
 
 const HeroTitle = styled(motion.h1)`
@@ -188,6 +198,30 @@ const Circle = styled(motion.div)<{ size: number; top: string; left?: string; ri
 `;
 
 const Hero: React.FC = () => {
+  const [isLogoTransitioning, setIsLogoTransitioning] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const isMobile = window.innerWidth <= 768;
+      
+      // Start transition when scrolling past 30% of viewport height
+      if (isMobile && scrollY > window.innerHeight * 0.3) {
+        setIsLogoTransitioning(true);
+      } else if (isMobile && scrollY <= window.innerHeight * 0.1) {
+        setIsLogoTransitioning(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, []);
+
   const scrollToNext = () => {
     const aboutSection = document.getElementById('about');
     if (aboutSection) {
@@ -247,11 +281,12 @@ const Hero: React.FC = () => {
 
       <HeroContainer>
         <LogoSection
+          isTransitioning={isLogoTransitioning}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1 }}
         >
-          <Logo size="large" showText={true} />
+          <Logo size={isLogoTransitioning ? "small" : "large"} showText={!isLogoTransitioning} />
         </LogoSection>
 
         <HeroTitle

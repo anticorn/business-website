@@ -128,6 +128,7 @@ const Header: React.FC = memo(() => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showOnMobile, setShowOnMobile] = useState(false);
+  const [isLogoTransitioning, setIsLogoTransitioning] = useState(false);
 
   const handleScroll = useCallback(() => {
     const scrollY = window.scrollY;
@@ -135,18 +136,23 @@ const Header: React.FC = memo(() => {
     
     setScrolled(scrollY > 50);
     
-    // On mobile, show header when scrolled past hero section (approximately 50vh)
+    // Track logo transition state
     if (isMobile) {
-      setShowOnMobile(scrollY > window.innerHeight * 0.5);
+      setIsLogoTransitioning(scrollY > window.innerHeight * 0.3 && scrollY <= window.innerHeight * 0.7);
+      setShowOnMobile(scrollY > window.innerHeight * 0.7);
     } else {
       setShowOnMobile(true);
+      setIsLogoTransitioning(false);
     }
   }, []);
 
   useEffect(() => {
-    // Initialize mobile visibility
+    // Initialize mobile visibility - start hidden on mobile, visible on desktop
     const isMobile = window.innerWidth <= 768;
     setShowOnMobile(!isMobile);
+    
+    // Run initial scroll check
+    handleScroll();
     
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleScroll, { passive: true });
@@ -176,7 +182,7 @@ const Header: React.FC = memo(() => {
       <Nav>
         <LogoWrapper
           initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
+          animate={{ opacity: isLogoTransitioning ? 0 : 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <Logo size="small" showText={false} />
