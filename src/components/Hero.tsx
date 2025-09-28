@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
@@ -197,30 +197,12 @@ const Circle = styled(motion.div)<{ size: number; top: string; left?: string; ri
   opacity: 0.1;
 `;
 
-const Hero: React.FC = () => {
-  const [isLogoTransitioning, setIsLogoTransitioning] = useState(false);
+interface HeroProps {
+  isLogoTransitioning: boolean;
+}
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const isMobile = window.innerWidth <= 768;
-      
-      // Start transition when scrolling past 20% of viewport height
-      if (isMobile && scrollY > window.innerHeight * 0.2) {
-        setIsLogoTransitioning(true);
-      } else if (isMobile && scrollY <= window.innerHeight * 0.1) {
-        setIsLogoTransitioning(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll, { passive: true });
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
-    };
-  }, []);
+const Hero: React.FC<HeroProps> = ({ isLogoTransitioning }) => {
+  // Logo transition state is now managed by the App component
 
   const scrollToNext = () => {
     const aboutSection = document.getElementById('about');

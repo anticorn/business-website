@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -46,12 +46,55 @@ const Main = styled.main`
 `;
 
 function App() {
+  const [isLogoTransitioning, setIsLogoTransitioning] = useState(false);
+  const [showHeaderOnMobile, setShowHeaderOnMobile] = useState(false);
+
+  const handleScroll = useCallback(() => {
+    const scrollY = window.scrollY;
+    const isMobile = window.innerWidth <= 768;
+    const viewportHeight = window.innerHeight;
+    
+    if (isMobile) {
+      // Logo transition happens between 20% and 50% of viewport
+      const shouldTransition = scrollY > viewportHeight * 0.2 && scrollY <= viewportHeight * 0.5;
+      setIsLogoTransitioning(shouldTransition);
+      
+      // Show header when scrolling past 50% of viewport height
+      const shouldShowHeader = scrollY > viewportHeight * 0.5;
+      setShowHeaderOnMobile(shouldShowHeader);
+    } else {
+      // Desktop: always show header, no logo transition
+      setShowHeaderOnMobile(true);
+      setIsLogoTransitioning(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    // Initialize mobile visibility - start hidden on mobile, visible on desktop
+    const isMobile = window.innerWidth <= 768;
+    setShowHeaderOnMobile(!isMobile);
+    
+    // Run initial scroll check
+    handleScroll();
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, [handleScroll]);
+
   return (
     <AppContainer>
       <GlobalStyle />
-      <Header />
+      <Header 
+        isLogoTransitioning={isLogoTransitioning}
+        showOnMobile={showHeaderOnMobile}
+      />
       <Main>
-        <Hero />
+        <Hero isLogoTransitioning={isLogoTransitioning} />
         <About />
         <Services />
         <Portfolio />

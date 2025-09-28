@@ -126,49 +126,27 @@ const CloseButton = styled(MobileMenuButton)`
   right: 2rem;
 `;
 
-const Header: React.FC = memo(() => {
+interface HeaderProps {
+  isLogoTransitioning: boolean;
+  showOnMobile: boolean;
+}
+
+const Header: React.FC<HeaderProps> = memo(({ isLogoTransitioning, showOnMobile }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [showOnMobile, setShowOnMobile] = useState(false);
-  const [isLogoTransitioning, setIsLogoTransitioning] = useState(false);
 
-  const handleScroll = useCallback(() => {
-    const scrollY = window.scrollY;
-    const isMobile = window.innerWidth <= 768;
-    const viewportHeight = window.innerHeight;
-    
-    setScrolled(scrollY > 50);
-    
-    // Track logo transition state and header visibility
-    if (isMobile) {
-      // Logo transition happens between 20% and 50% of viewport
-      setIsLogoTransitioning(scrollY > viewportHeight * 0.2 && scrollY <= viewportHeight * 0.5);
-      
-      // Show header when scrolling past 50% of viewport height
-      setShowOnMobile(scrollY > viewportHeight * 0.5);
-    } else {
-      // Desktop: always show header
-      setShowOnMobile(true);
-      setIsLogoTransitioning(false);
-    }
-  }, []);
-
+  // Scroll handling is now managed by the App component
   useEffect(() => {
-    // Initialize mobile visibility - start hidden on mobile, visible on desktop
-    const isMobile = window.innerWidth <= 768;
-    setShowOnMobile(!isMobile);
-    
-    // Run initial scroll check
-    handleScroll();
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
     
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll, { passive: true });
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
     };
-  }, [handleScroll]);
+  }, []);
 
   const toggleMenu = useCallback(() => {
     setIsMenuOpen(prev => !prev);
