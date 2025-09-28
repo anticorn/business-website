@@ -28,9 +28,9 @@ const LogoImage = styled.img<{ size?: 'small' | 'medium' | 'large' }>`
   @media (max-width: 768px) {
     width: ${props => {
       switch (props.size) {
-        case 'small': return '60px';
-        case 'large': return '120px';
-        default: return '80px';
+        case 'small': return '90px'; /* 50% bigger than 60px */
+        case 'large': return '180px'; /* 50% bigger than 120px */
+        default: return '120px'; /* 50% bigger than 80px */
       }
     }};
   }
@@ -38,9 +38,9 @@ const LogoImage = styled.img<{ size?: 'small' | 'medium' | 'large' }>`
   @media (max-width: 480px) {
     width: ${props => {
       switch (props.size) {
-        case 'small': return '45px';
-        case 'large': return '100px';
-        default: return '65px';
+        case 'small': return '67px'; /* 50% bigger than 45px */
+        case 'large': return '150px'; /* 50% bigger than 100px */
+        default: return '97px'; /* 50% bigger than 65px */
       }
     }};
   }
@@ -81,23 +81,23 @@ const FallbackLogo = styled.div<{ size?: 'small' | 'medium' | 'large' }>`
   @media (max-width: 768px) {
     width: ${props => {
       switch (props.size) {
-        case 'small': return '60px';
-        case 'large': return '120px';
-        default: return '80px';
+        case 'small': return '90px'; /* 50% bigger than 60px */
+        case 'large': return '180px'; /* 50% bigger than 120px */
+        default: return '120px'; /* 50% bigger than 80px */
       }
     }};
     height: ${props => {
       switch (props.size) {
-        case 'small': return '60px';
-        case 'large': return '120px';
-        default: return '80px';
+        case 'small': return '90px'; /* 50% bigger than 60px */
+        case 'large': return '180px'; /* 50% bigger than 120px */
+        default: return '120px'; /* 50% bigger than 80px */
       }
     }};
     font-size: ${props => {
       switch (props.size) {
-        case 'small': return '0.6rem';
-        case 'large': return '1.2rem';
-        default: return '0.8rem';
+        case 'small': return '0.9rem'; /* 50% bigger than 0.6rem */
+        case 'large': return '1.8rem'; /* 50% bigger than 1.2rem */
+        default: return '1.2rem'; /* 50% bigger than 0.8rem */
       }
     }};
   }
@@ -105,23 +105,23 @@ const FallbackLogo = styled.div<{ size?: 'small' | 'medium' | 'large' }>`
   @media (max-width: 480px) {
     width: ${props => {
       switch (props.size) {
-        case 'small': return '45px';
-        case 'large': return '100px';
-        default: return '65px';
+        case 'small': return '67px'; /* 50% bigger than 45px */
+        case 'large': return '150px'; /* 50% bigger than 100px */
+        default: return '97px'; /* 50% bigger than 65px */
       }
     }};
     height: ${props => {
       switch (props.size) {
-        case 'small': return '45px';
-        case 'large': return '100px';
-        default: return '65px';
+        case 'small': return '67px'; /* 50% bigger than 45px */
+        case 'large': return '150px'; /* 50% bigger than 100px */
+        default: return '97px'; /* 50% bigger than 65px */
       }
     }};
     font-size: ${props => {
       switch (props.size) {
-        case 'small': return '0.45rem';
-        case 'large': return '1rem';
-        default: return '0.65rem';
+        case 'small': return '0.67rem'; /* 50% bigger than 0.45rem */
+        case 'large': return '1.5rem'; /* 50% bigger than 1rem */
+        default: return '0.97rem'; /* 50% bigger than 0.65rem */
       }
     }};
   }

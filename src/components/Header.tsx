@@ -17,17 +17,18 @@ const HeaderContainer = styled(motion.header)<{ scrolled: boolean; showOnMobile:
   will-change: background-color, backdrop-filter, transform;
   
   @media (max-width: 768px) {
-    padding: 0.75rem 0;
+    padding: 1.125rem 0; /* 50% bigger than 0.75rem */
     background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(15px);
     border-bottom: 2px solid rgba(0, 0, 0, 0.1);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     transform: ${props => props.showOnMobile ? 'translateY(0)' : 'translateY(-100%)'};
     opacity: ${props => props.showOnMobile ? 1 : 0};
+    visibility: ${props => props.showOnMobile ? 'visible' : 'hidden'};
   }
   
   @media (max-width: 480px) {
-    padding: 0.5rem 0;
+    padding: 0.75rem 0; /* 50% bigger than 0.5rem */
   }
 `;
 
@@ -134,9 +135,6 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = memo(({ isLogoTransitioning, showOnMobile }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  
-  // Debug logging
-  console.log('Header props:', { isLogoTransitioning, showOnMobile });
 
   // Scroll handling is now managed by the App component
   useEffect(() => {
