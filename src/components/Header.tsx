@@ -17,16 +17,17 @@ const HeaderContainer = styled(motion.header)<{ scrolled: boolean; showOnMobile:
   will-change: background-color, backdrop-filter, transform;
   
   @media (max-width: 768px) {
-    padding: 0.25rem 0;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0.75rem 0;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(15px);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     transform: ${props => props.showOnMobile ? 'translateY(0)' : 'translateY(-100%)'};
     opacity: ${props => props.showOnMobile ? 1 : 0};
   }
   
   @media (max-width: 480px) {
-    padding: 0.2rem 0;
+    padding: 0.5rem 0;
   }
 `;
 
@@ -39,11 +40,11 @@ const Nav = styled.nav`
   align-items: center;
   
   @media (max-width: 768px) {
-    padding: 0 0.75rem;
+    padding: 0 1rem;
   }
   
   @media (max-width: 480px) {
-    padding: 0 0.5rem;
+    padding: 0 0.75rem;
   }
 `;
 
@@ -139,9 +140,9 @@ const Header: React.FC = memo(() => {
     
     // Track logo transition state and header visibility
     if (isMobile) {
-      setIsLogoTransitioning(scrollY > window.innerHeight * 0.3 && scrollY <= window.innerHeight * 0.7);
-      // Show header when scrolling past 70% of viewport height
-      setShowOnMobile(scrollY > window.innerHeight * 0.7);
+      setIsLogoTransitioning(scrollY > window.innerHeight * 0.2 && scrollY <= window.innerHeight * 0.5);
+      // Show header when scrolling past 50% of viewport height
+      setShowOnMobile(scrollY > window.innerHeight * 0.5);
     } else {
       // Desktop: always show header
       setShowOnMobile(true);

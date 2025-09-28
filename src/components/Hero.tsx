@@ -40,7 +40,7 @@ const LogoSection = styled(motion.div)<{ isTransitioning: boolean }>`
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   
   @media (max-width: 768px) {
-    top: ${props => props.isTransitioning ? '0.5rem' : 'auto'};
+    top: ${props => props.isTransitioning ? '0.75rem' : 'auto'};
     left: ${props => props.isTransitioning ? '1rem' : 'auto'};
   }
 `;
@@ -205,8 +205,8 @@ const Hero: React.FC = () => {
       const scrollY = window.scrollY;
       const isMobile = window.innerWidth <= 768;
       
-      // Start transition when scrolling past 30% of viewport height
-      if (isMobile && scrollY > window.innerHeight * 0.3) {
+      // Start transition when scrolling past 20% of viewport height
+      if (isMobile && scrollY > window.innerHeight * 0.2) {
         setIsLogoTransitioning(true);
       } else if (isMobile && scrollY <= window.innerHeight * 0.1) {
         setIsLogoTransitioning(false);
