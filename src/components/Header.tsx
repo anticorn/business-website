@@ -134,6 +134,9 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = memo(({ isLogoTransitioning, showOnMobile }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  
+  // Debug logging
+  console.log('Header props:', { isLogoTransitioning, showOnMobile });
 
   // Scroll handling is now managed by the App component
   useEffect(() => {

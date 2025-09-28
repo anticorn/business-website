@@ -59,9 +59,18 @@ function App() {
       const shouldTransition = scrollY > viewportHeight * 0.2 && scrollY <= viewportHeight * 0.5;
       setIsLogoTransitioning(shouldTransition);
       
-      // Show header when scrolling past 50% of viewport height
-      const shouldShowHeader = scrollY > viewportHeight * 0.5;
+      // Show header when scrolling past 30% of viewport height (lowered threshold)
+      const shouldShowHeader = scrollY > viewportHeight * 0.3;
       setShowHeaderOnMobile(shouldShowHeader);
+      
+      // Debug logging
+      console.log('Mobile scroll:', {
+        scrollY,
+        viewportHeight,
+        threshold: viewportHeight * 0.3,
+        shouldShowHeader,
+        isLogoTransitioning: shouldTransition
+      });
     } else {
       // Desktop: always show header, no logo transition
       setShowHeaderOnMobile(true);
