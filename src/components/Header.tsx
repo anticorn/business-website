@@ -135,14 +135,17 @@ const Header: React.FC = memo(() => {
   const handleScroll = useCallback(() => {
     const scrollY = window.scrollY;
     const isMobile = window.innerWidth <= 768;
+    const viewportHeight = window.innerHeight;
     
     setScrolled(scrollY > 50);
     
     // Track logo transition state and header visibility
     if (isMobile) {
-      setIsLogoTransitioning(scrollY > window.innerHeight * 0.2 && scrollY <= window.innerHeight * 0.5);
+      // Logo transition happens between 20% and 50% of viewport
+      setIsLogoTransitioning(scrollY > viewportHeight * 0.2 && scrollY <= viewportHeight * 0.5);
+      
       // Show header when scrolling past 50% of viewport height
-      setShowOnMobile(scrollY > window.innerHeight * 0.5);
+      setShowOnMobile(scrollY > viewportHeight * 0.5);
     } else {
       // Desktop: always show header
       setShowOnMobile(true);
