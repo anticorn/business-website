@@ -22,6 +22,7 @@ const HeaderContainer = styled(motion.header)<{ scrolled: boolean; showOnMobile:
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     transform: ${props => props.showOnMobile ? 'translateY(0)' : 'translateY(-100%)'};
+    opacity: ${props => props.showOnMobile ? 1 : 0};
   }
   
   @media (max-width: 480px) {
@@ -136,11 +137,13 @@ const Header: React.FC = memo(() => {
     
     setScrolled(scrollY > 50);
     
-    // Track logo transition state
+    // Track logo transition state and header visibility
     if (isMobile) {
       setIsLogoTransitioning(scrollY > window.innerHeight * 0.3 && scrollY <= window.innerHeight * 0.7);
+      // Show header when scrolling past 70% of viewport height
       setShowOnMobile(scrollY > window.innerHeight * 0.7);
     } else {
+      // Desktop: always show header
       setShowOnMobile(true);
       setIsLogoTransitioning(false);
     }

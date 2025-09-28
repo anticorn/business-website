@@ -36,7 +36,7 @@ const LogoSection = styled(motion.div)<{ isTransitioning: boolean }>`
   position: ${props => props.isTransitioning ? 'fixed' : 'relative'};
   top: ${props => props.isTransitioning ? '1rem' : 'auto'};
   left: ${props => props.isTransitioning ? '2rem' : 'auto'};
-  z-index: ${props => props.isTransitioning ? '1001' : 'auto'};
+  z-index: ${props => props.isTransitioning ? '1002' : 'auto'};
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   
   @media (max-width: 768px) {
